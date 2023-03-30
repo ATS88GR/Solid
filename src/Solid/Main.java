@@ -10,6 +10,7 @@ public class Main {
         HotDog lite = factory.getHotDog(HotDogRecipe.LITE);
 
         lite.makeHotDog();
+        lite.showAndWrite();
         Storage.showInfo();
     }
 
