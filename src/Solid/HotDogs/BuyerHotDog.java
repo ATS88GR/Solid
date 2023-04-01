@@ -1,4 +1,4 @@
-package Solid;
+package Solid.HotDogs;
 
 import java.util.Scanner;
 
@@ -26,7 +26,7 @@ public class BuyerHotDog extends HotDog {
     }
 
     @Override
-    void showAndWrite() {
+    public void showAndWrite() {
 
     }
 }

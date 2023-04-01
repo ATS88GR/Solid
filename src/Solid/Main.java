@@ -1,5 +1,9 @@
 package Solid;
 
+import Solid.HotDogs.HotDog;
+import Solid.HotDogs.HotDogFactory;
+import Solid.HotDogs.HotDogRecipe;
+
 public class Main {
     public static void main(String[] args) {
         new Storage(20,20,10, 10000, 1000, 10000,

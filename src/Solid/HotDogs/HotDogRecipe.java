@@ -1,4 +1,4 @@
-package Solid;
+package Solid.HotDogs;
 
 public enum HotDogRecipe {
     LITE,

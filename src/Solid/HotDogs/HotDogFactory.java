@@ -1,4 +1,4 @@
-package Solid;
+package Solid.HotDogs;
 
 public class HotDogFactory {
     public HotDog getHotDog(HotDogRecipe recipe){

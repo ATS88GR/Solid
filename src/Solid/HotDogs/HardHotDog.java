@@ -1,4 +1,4 @@
-package Solid;
+package Solid.HotDogs;
 
 public class HardHotDog extends HotDog{
     public HardHotDog(double bread, double sausage, double onion, double mayonnaise, double mustard, double ketchup,

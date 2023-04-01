@@ -1,8 +1,15 @@
-package Solid;
+package Solid.HotDogs;
 
-public abstract class HotDog {
-  double[] ingredients = new double[10];
-  int cost;
+import Solid.Ingredients;
+import Solid.Storage;
+
+import java.io.Serializable;
+import java.util.HashMap;
+
+public abstract class HotDog implements Serializable {
+  private final double[] ingredients = new double[10];
+  private final HashMap <Ingredients,Double> ingredientsOfHotDog = new HashMap<>();
+  double cost;
   public void setBread(double bread) {
     ingredients[0] = bread;
   }
@@ -37,7 +44,9 @@ public abstract class HotDog {
     this.cost = cost;
   }
 
-  public HotDog(double bread, double sausage, double onion, double mayonnaise, double mustard, double ketchup, double topping1, double topping2, double topping3, double topping4, int cost) {
+  public HotDog(double bread, double sausage, double onion, double mayonnaise, double mustard, double ketchup,
+                double topping1, double topping2, double topping3, double topping4, double cost) {
+    ingredientsOfHotDog.put(Ingredients.BREAD,bread);
     ingredients[0] = bread;
     ingredients[1] = sausage;
     ingredients[2] = onion;
@@ -63,7 +72,8 @@ public abstract class HotDog {
     Storage.storage.put(Ingredients.TOPPING2,Storage.storage.get(Ingredients.TOPPING2) - ingredients[7]);
     Storage.storage.put(Ingredients.TOPPING3,Storage.storage.get(Ingredients.TOPPING3) - ingredients[8]);
     Storage.storage.put(Ingredients.TOPPING4,Storage.storage.get(Ingredients.TOPPING4) - ingredients[9]);
+    ingredientsOfHotDog.keySet();
   }
-  abstract void showAndWrite();
+  public abstract void showAndWrite();
 
 }
