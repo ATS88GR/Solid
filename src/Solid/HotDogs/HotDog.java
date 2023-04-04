@@ -3,77 +3,77 @@ package Solid.HotDogs;
 import Solid.Ingredients;
 import Solid.Storage;
 
+import java.io.FileWriter;
 import java.io.Serializable;
 import java.util.HashMap;
+import java.util.Map;
 
 public abstract class HotDog implements Serializable {
-  private final double[] ingredients = new double[10];
   private final HashMap <Ingredients,Double> ingredientsOfHotDog = new HashMap<>();
-  double cost;
+  private double cost;
+
   public void setBread(double bread) {
-    ingredients[0] = bread;
+    ingredientsOfHotDog.put(Ingredients.BREAD,bread);
   }
   public void setSausage(double sausage) {
-    ingredients[1] = sausage;
+    ingredientsOfHotDog.put(Ingredients.SAUSAGE,sausage);
   }
   public void setOnion(double onion) {
-    ingredients[2] = onion;
+    ingredientsOfHotDog.put(Ingredients.ONION,onion);
   }
   public void setMayonnaise(double mayonnaise) {
-    ingredients[3] = mayonnaise;
+    ingredientsOfHotDog.put(Ingredients.MAYONNAISE,mayonnaise);
   }
   public void setMustard(double mustard) {
-    ingredients[4] = mustard;
+    ingredientsOfHotDog.put(Ingredients.MUSTARD,mustard);
   }
   public void setKetchup(double ketchup) {
-    ingredients[5] = ketchup;
+    ingredientsOfHotDog.put(Ingredients.KETCHUP,ketchup);
   }
   public void setTopping1(double topping1) {
-    ingredients[6] = topping1;
+    ingredientsOfHotDog.put(Ingredients.TOPPING1,topping1);
   }
   public void setTopping2(double topping2) {
-    ingredients[7] = topping2;
+    ingredientsOfHotDog.put(Ingredients.TOPPING2,topping2);
   }
   public void setTopping3(double topping3) {
-    ingredients[8] = topping3;
+    ingredientsOfHotDog.put(Ingredients.TOPPING3,topping3);
   }
   public void setTopping4(double topping4) {
-    ingredients[9] = topping4;
+    ingredientsOfHotDog.put(Ingredients.TOPPING4,topping4);
   }
-  public void setCost(int cost) {
+  public void setCost(double cost) {
     this.cost = cost;
   }
 
   public HotDog(double bread, double sausage, double onion, double mayonnaise, double mustard, double ketchup,
                 double topping1, double topping2, double topping3, double topping4, double cost) {
     ingredientsOfHotDog.put(Ingredients.BREAD,bread);
-    ingredients[0] = bread;
-    ingredients[1] = sausage;
-    ingredients[2] = onion;
-    ingredients[3] = mayonnaise;
-    ingredients[4] = mustard;
-    ingredients[5] = ketchup;
-    ingredients[6] = topping1;
-    ingredients[7] = topping2;
-    ingredients[8] = topping3;
-    ingredients[9] = topping4;
+    ingredientsOfHotDog.put(Ingredients.SAUSAGE,sausage);
+    ingredientsOfHotDog.put(Ingredients.ONION,onion);
+    ingredientsOfHotDog.put(Ingredients.MAYONNAISE,mayonnaise);
+    ingredientsOfHotDog.put(Ingredients.MUSTARD,mustard);
+    ingredientsOfHotDog.put(Ingredients.KETCHUP,ketchup);
+    ingredientsOfHotDog.put(Ingredients.TOPPING1,topping1);
+    ingredientsOfHotDog.put(Ingredients.TOPPING2,topping2);
+    ingredientsOfHotDog.put(Ingredients.TOPPING3,topping3);
+    ingredientsOfHotDog.put(Ingredients.TOPPING4,topping4);
     this.cost = cost;
   }
   public HotDog(){}
 
   public void makeHotDog(){
-    Storage.storage.put(Ingredients.BREAD,Storage.storage.get(Ingredients.BREAD) - ingredients[0]);
-    Storage.storage.put(Ingredients.SAUSAGE,Storage.storage.get(Ingredients.SAUSAGE) - ingredients[1]);
-    Storage.storage.put(Ingredients.ONION,Storage.storage.get(Ingredients.ONION) - ingredients[2]);
-    Storage.storage.put(Ingredients.MAYONNAISE,Storage.storage.get(Ingredients.MAYONNAISE) - ingredients[3]);
-    Storage.storage.put(Ingredients.MUSTARD,Storage.storage.get(Ingredients.MUSTARD) - ingredients[4]);
-    Storage.storage.put(Ingredients.KETCHUP,Storage.storage.get(Ingredients.KETCHUP) - ingredients[5]);
-    Storage.storage.put(Ingredients.TOPPING1,Storage.storage.get(Ingredients.TOPPING1) - ingredients[6]);
-    Storage.storage.put(Ingredients.TOPPING2,Storage.storage.get(Ingredients.TOPPING2) - ingredients[7]);
-    Storage.storage.put(Ingredients.TOPPING3,Storage.storage.get(Ingredients.TOPPING3) - ingredients[8]);
-    Storage.storage.put(Ingredients.TOPPING4,Storage.storage.get(Ingredients.TOPPING4) - ingredients[9]);
-    ingredientsOfHotDog.keySet();
+    for (Map.Entry<Ingredients,Double> item: ingredientsOfHotDog.entrySet())
+      Storage.storage.put(item.getKey(),Storage.storage.get(item.getKey()) - item.getValue());
   }
-  public abstract void showAndWrite();
+  public void showAndWrite(){
+    String info = "You ordered " + this.getClass().getSimpleName() + ", cost " + cost + " USD";
+    System.out.println(info);
+    try (FileWriter fw = new FileWriter("C:\\Users\\user\\eclipse-workspace\\Solid\\OrderedHotDog.txt", false)){
+      fw.write(info);
+    } catch (Exception e) {
+      System.out.println(e.getMessage());
+    }
+  }
 
 }
