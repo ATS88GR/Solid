@@ -13,4 +13,12 @@ public class BaseOrders {
     public static void menu (){
 
     }
+
+    public static HashMap<LocalDate, ArrayList<HotDog>> getBaseOrders() {
+        return baseOrders;
+    }
+
+    public static void setBaseOrders(HashMap<LocalDate, ArrayList<HotDog>> baseOrders) {
+        BaseOrders.baseOrders = baseOrders;
+    }
 }

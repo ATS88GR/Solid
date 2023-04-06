@@ -4,13 +4,15 @@ import Solid.HotDogs.HotDog;
 import Solid.HotDogs.HotDogFactory;
 import Solid.HotDogs.HotDogRecipe;
 
+import java.time.LocalDate;
 import java.util.Scanner;
 
 public class Main {
     public static Scanner sc = new Scanner(System.in);
     public static HotDogFactory factory = new HotDogFactory();
+    static LocalDate date;
     public static void main(String[] args) {
-        System.out.print("Please, load ingredients:\nBread: ");
+        /*System.out.print("Please, load ingredients:\nBread: ");
         Storage.storage.put(Ingredients.BREAD, sc.nextDouble());
         System.out.print("\nSausages: ");
         Storage.storage.put(Ingredients.SAUSAGE, sc.nextDouble());
@@ -30,19 +32,18 @@ public class Main {
         Storage.storage.put(Ingredients.TOPPING3, sc.nextDouble());
         System.out.print("\nTopping 4");
         Storage.storage.put(Ingredients.TOPPING4, sc.nextDouble());
-        System.out.println();
-        /*new Storage(20,20,10, 10000, 1000, 10000,
-                50000, 50000, 50000, 50000);*/
-        System.out.println("Open a cashier?(y/n)");
+        System.out.println();*/
+        new Storage(20,20,10, 10000, 1000, 10000,
+                50000, 50000, 50000, 50000);
+        /*System.out.println("Open a cashier?(y/n)");
         if (sc.nextLine().equalsIgnoreCase("y")){
-            Orders orders = new Orders();
-        }
+            Orders.menu();
+        }*/
         chooseAction();
-        HotDog lite = factory.getHotDog(HotDogRecipe.LITE);
-
+        /*HotDog lite = factory.getHotDog(HotDogRecipe.LITE);
         lite.makeHotDog();
         lite.showAndWrite();
-        Storage.showInfo();
+        Storage.showInfo();*/
     }
 
     private static void chooseAction() {
@@ -75,7 +76,10 @@ public class Main {
 
     private static void actions(int chooseAct) {
         switch (chooseAct) {
-            case 1 -> {Orders.menu();}
+            case 1 -> {
+                new Orders().menu();
+                date = LocalDate.now();
+            }
             case 2 -> {}
             case 3 -> {}
             case 4 -> {}

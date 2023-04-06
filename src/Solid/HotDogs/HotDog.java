@@ -11,6 +11,8 @@ import java.util.Map;
 public abstract class HotDog implements Serializable {
   private final HashMap <Ingredients,Double> ingredientsOfHotDog = new HashMap<>();
   private double cost;
+  private double discount;
+  private int numberOfHotDogs;
 
   public void setBread(double bread) {
     ingredientsOfHotDog.put(Ingredients.BREAD,bread);
@@ -45,9 +47,16 @@ public abstract class HotDog implements Serializable {
   public void setCost(double cost) {
     this.cost = cost;
   }
+  public void setNumberOfHotDogs(int numberOfHotDogs) {
+    this.numberOfHotDogs = numberOfHotDogs;
+  }
+  public void setDiscount(double discount) {
+    this.discount = discount;
+  }
 
   public HotDog(double bread, double sausage, double onion, double mayonnaise, double mustard, double ketchup,
-                double topping1, double topping2, double topping3, double topping4, double cost) {
+                double topping1, double topping2, double topping3, double topping4, double cost, int numberOfHotDogs,
+                double discount) {
     ingredientsOfHotDog.put(Ingredients.BREAD,bread);
     ingredientsOfHotDog.put(Ingredients.SAUSAGE,sausage);
     ingredientsOfHotDog.put(Ingredients.ONION,onion);
@@ -59,6 +68,8 @@ public abstract class HotDog implements Serializable {
     ingredientsOfHotDog.put(Ingredients.TOPPING3,topping3);
     ingredientsOfHotDog.put(Ingredients.TOPPING4,topping4);
     this.cost = cost;
+    this.numberOfHotDogs = numberOfHotDogs;
+    this.discount = discount;
   }
   public HotDog(){}
 
@@ -75,5 +86,7 @@ public abstract class HotDog implements Serializable {
       System.out.println(e.getMessage());
     }
   }
+
+
 
 }
