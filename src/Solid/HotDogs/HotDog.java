@@ -5,6 +5,7 @@ import Solid.Storage;
 
 import java.io.FileWriter;
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -13,6 +14,7 @@ public abstract class HotDog implements Serializable {
   private double cost;
   private double discount;
   private int numberOfHotDogs;
+  private LocalDate dateOfOrder;
 
   public void setBread(double bread) {
     ingredientsOfHotDog.put(Ingredients.BREAD,bread);
@@ -70,17 +72,21 @@ public abstract class HotDog implements Serializable {
     this.cost = cost;
     this.numberOfHotDogs = numberOfHotDogs;
     this.discount = discount;
+    dateOfOrder = LocalDate.now();
   }
-  public HotDog(){}
+  public HotDog(){
+    dateOfOrder = LocalDate.now();
+  }
 
   public void makeHotDog(){
     for (Map.Entry<Ingredients,Double> item: ingredientsOfHotDog.entrySet())
-      Storage.storage.put(item.getKey(),Storage.storage.get(item.getKey()) - item.getValue());
+      Storage.storage.put(item.getKey(), Storage.storage.get(item.getKey()) - item.getValue());
   }
-  public void showAndWrite(){
-    String info = "You ordered " + this.getClass().getSimpleName() + ", cost " + cost + " USD";
-    System.out.println(info);
-    try (FileWriter fw = new FileWriter("C:\\Users\\user\\eclipse-workspace\\Solid\\OrderedHotDog.txt", false)){
+  public void showAndWrite(){   //need to separate class name
+    cost *= (1-discount);
+    String info = "You ordered " + numberOfHotDogs + " " + this.getClass().getSimpleName() + "s, total cost " + cost*numberOfHotDogs + " USD, discount " + discount*100 +"%\n";
+    System.out.print(info);
+    try (FileWriter fw = new FileWriter("C:\\Users\\user\\eclipse-workspace\\Solid\\OrderedHotDog.txt", true)){
       fw.write(info);
     } catch (Exception e) {
       System.out.println(e.getMessage());

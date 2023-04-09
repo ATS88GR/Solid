@@ -8,17 +8,19 @@ import java.util.HashMap;
 
 public class BaseOrders {
 
-    private static HashMap<LocalDate, ArrayList<HotDog>> baseOrders = new HashMap<>();
+    private static final HashMap<Integer, ArrayList<HotDog>> baseOrders = new HashMap<>();
 
-    public static void menu (){
+    private static Integer orderNumber = 0;
 
-    }
-
-    public static HashMap<LocalDate, ArrayList<HotDog>> getBaseOrders() {
+    public static HashMap<Integer, ArrayList<HotDog>> getBaseOrders() {
         return baseOrders;
     }
 
-    public static void setBaseOrders(HashMap<LocalDate, ArrayList<HotDog>> baseOrders) {
-        BaseOrders.baseOrders = baseOrders;
+    public static Integer getOrderNumber() {
+        return orderNumber;
+    }
+
+    public static void setOrderNumber(Integer orderNumber) {
+        BaseOrders.orderNumber = orderNumber;
     }
 }

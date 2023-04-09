@@ -11,10 +11,9 @@ public enum Ingredients {
     TOPPING2(1),
     TOPPING3(1),
     TOPPING4(1);
-    private final int cost;
-
-    Ingredients(int cost) {
-        this.cost = cost;
+    private final double ingredientCost;
+    Ingredients(double cost) {
+        this.ingredientCost = cost;
     }
-    public int getCost(){return cost;}
+    public double getIngredientCost(){return ingredientCost;}
 }

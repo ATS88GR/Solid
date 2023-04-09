@@ -4,10 +4,9 @@ import java.util.HashMap;
 
 public class Storage {
 
-    public static HashMap<Ingredients, Double> storage;
+    public static HashMap<Ingredients, Double> storage = new HashMap<>();
     public Storage(double bread, double sausage, double onion, double mayonnaise, double mustard, double ketchup,
                    double topping1, double topping2, double topping3, double topping4) {
-        storage = new HashMap<>();
         storage.put(Ingredients.BREAD, bread);
         storage.put(Ingredients.SAUSAGE, sausage);
         storage.put(Ingredients.ONION, onion);
