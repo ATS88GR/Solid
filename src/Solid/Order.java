@@ -2,7 +2,6 @@ package Solid;
 
 import Solid.HotDogs.HotDog;
 import Solid.HotDogs.HotDogRecipe;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -10,7 +9,6 @@ import java.util.Map;
 public class Order {
     private final HashMap<HotDogRecipe, Integer> hotDogOrder = new HashMap<>();
     private final ArrayList <HotDog> hotDogArrayList = new ArrayList<>();
-    private String paymentType;
 
     public void menu() {
         int chooseRecipe;
@@ -20,7 +18,11 @@ public class Order {
         System.out.println("Proceed to checkout? (y/n)");
         if (Main.sc.nextLine().equalsIgnoreCase("y")) {
             System.out.println("Payment by cash or card?(cash/card)");
+            String paymentType;
+            do {
                 paymentType = Main.sc.nextLine();
+                System.out.println("Type cash or card");
+            } while (!paymentType.equalsIgnoreCase("cash") && !paymentType.equalsIgnoreCase("card"));
     loop:   do {
                 System.out.println("""
                         Which recipe of hot dog you choose?
@@ -40,34 +42,24 @@ public class Order {
                     else if (countBuyAll > 7) discount = 0.1;
                     else if (countBuyAll > 2) discount = 0.05;
                     switch (chooseRecipe) {
-                        case 1 -> {
-                            hotDogOrder.put(HotDogRecipe.LITE, countBuy);
-                            //hotDogOrder.add(Solid.Main.factory.getHotDog(HotDogRecipe.LITE));
-                        }
-                        case 2 -> {
-                            hotDogOrder.put(HotDogRecipe.MEDIUM, countBuy);
-                        }
-                        case 3 -> {
-                            hotDogOrder.put(HotDogRecipe.HARD, countBuy);
-                        }
-                        case 4 -> {
-                            hotDogOrder.put(HotDogRecipe.BUYER, countBuy);
-                        }
+                        case 1 -> {hotDogOrder.put(HotDogRecipe.LITE, countBuy);}
+                        case 2 -> {hotDogOrder.put(HotDogRecipe.MEDIUM, countBuy);}
+                        case 3 -> {hotDogOrder.put(HotDogRecipe.HARD, countBuy);}
+                        case 4 -> {hotDogOrder.put(HotDogRecipe.BUYER, countBuy);}
                     }
                 }else break;
             }while (true);
-            if (!hotDogOrder.isEmpty()) fixOrder(discount);
+            if (!hotDogOrder.isEmpty()) fixOrder(discount, paymentType);
         }
     }
 
-    private void fixOrder(double discount) {
-        //ArrayList <HotDog> hotDogArrayList = new ArrayList<>();
+    private void fixOrder(double discount, String paymentType) {
         for (Map.Entry<HotDogRecipe,Integer> item: hotDogOrder.entrySet()) {
             HotDog hotDog = Main.factory.getHotDog(item.getKey());
-            hotDog.setDiscount(discount);
             hotDog.setNumberOfHotDogs(item.getValue());
+            hotDog.setDiscount(discount);
+            hotDog.setPaymentType(paymentType);
             hotDog.makeHotDog();
-            hotDog.showAndWrite();
             hotDogArrayList.add(hotDog);
         }
         BaseOrders.setOrderNumber(BaseOrders.getOrderNumber() + 1);

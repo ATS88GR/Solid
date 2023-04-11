@@ -1,5 +1,6 @@
 package Solid.HotDogs;
 
+import Solid.Accounting;
 import Solid.Ingredients;
 import Solid.Storage;
 
@@ -14,7 +15,8 @@ public abstract class HotDog implements Serializable {
   private double cost;
   private double discount;
   private int numberOfHotDogs;
-  private LocalDate dateOfOrder;
+  private final LocalDate dateOfOrder;
+  private String paymentType = "cash";
 
   public void setBread(double bread) {
     ingredientsOfHotDog.put(Ingredients.BREAD,bread);
@@ -55,6 +57,9 @@ public abstract class HotDog implements Serializable {
   public void setDiscount(double discount) {
     this.discount = discount;
   }
+  public void setPaymentType(String paymentType) {
+    this.paymentType = paymentType;
+  }
 
   public HotDog(double bread, double sausage, double onion, double mayonnaise, double mustard, double ketchup,
                 double topping1, double topping2, double topping3, double topping4, double cost, int numberOfHotDogs,
@@ -77,22 +82,33 @@ public abstract class HotDog implements Serializable {
   public HotDog(){
     dateOfOrder = LocalDate.now();
   }
+  public HashMap<Ingredients, Double> getIngredientsOfHotDog() {
+    return ingredientsOfHotDog;
+  }
 
   public void makeHotDog(){
     for (Map.Entry<Ingredients,Double> item: ingredientsOfHotDog.entrySet())
       Storage.storage.put(item.getKey(), Storage.storage.get(item.getKey()) - item.getValue());
+    showAndWrite();
   }
   public void showAndWrite(){   //need to separate class name
-    cost *= (1-discount);
-    String info = "You ordered " + numberOfHotDogs + " " + this.getClass().getSimpleName() + "s, total cost " + cost*numberOfHotDogs + " USD, discount " + discount*100 +"%\n";
+    double totalCost = cost*(1-discount)*numberOfHotDogs;
+    String info = "You ordered " + numberOfHotDogs + " " + this.getClass().getSimpleName() + "s, total cost "
+            + totalCost + " USD, discount " + discount*100 +"%\n";
     System.out.print(info);
-    try (FileWriter fw = new FileWriter("C:\\Users\\user\\eclipse-workspace\\Solid\\OrderedHotDog.txt", true)){
+    try (FileWriter fw = new FileWriter("C:\\Users\\user\\eclipse-workspace\\Solid\\OrderedHotDog.txt",
+            true)){
       fw.write(info);
     } catch (Exception e) {
       System.out.println(e.getMessage());
     }
+    forAccounting(totalCost);
   }
-
+  public void forAccounting(double totalCost){
+    if(paymentType.equalsIgnoreCase("card")){
+      Accounting.setCardCount(Accounting.getCardCount() + totalCost);
+    } else Accounting.setCashCount(Accounting.getCashCount() + totalCost);
+  }
 
 
 }

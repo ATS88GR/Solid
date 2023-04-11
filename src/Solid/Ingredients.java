@@ -1,16 +1,16 @@
 package Solid;
 
 public enum Ingredients {
-    BREAD(1),
-    SAUSAGE(2),
-    ONION(1),
-    MAYONNAISE(1),
-    MUSTARD(1),
-    KETCHUP(1),
-    TOPPING1(1),
-    TOPPING2(1),
-    TOPPING3(1),
-    TOPPING4(1);
+    BREAD(0.2),
+    SAUSAGE(0.4),
+    ONION(0.1),
+    MAYONNAISE(0.02),
+    MUSTARD(0.02),
+    KETCHUP(0.02),
+    TOPPING1(0.01),
+    TOPPING2(0.01),
+    TOPPING3(0.01),
+    TOPPING4(0.01);
     private final double ingredientCost;
     Ingredients(double cost) {
         this.ingredientCost = cost;

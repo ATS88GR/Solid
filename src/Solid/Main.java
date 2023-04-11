@@ -1,11 +1,13 @@
 package Solid;
 
 import Solid.HotDogs.HotDogFactory;
+import java.time.LocalDate;
 import java.util.Scanner;
 
 public class Main {
     public static Scanner sc = new Scanner(System.in);
     public static HotDogFactory factory = new HotDogFactory();
+    public static LocalDate currentDate = LocalDate.now();
 
     public static void main(String[] args) {
         /*System.out.print("Please, load ingredients:\nBread: ");
